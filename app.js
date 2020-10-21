@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 const api = new ParseServer({
-  databaseURI:'mongodb://localhost:27017/Merchants', // Connection string for your MongoDB database
+  databaseURI:'mongodb://localhost:27017/StokeSystem', // Connection string for your MongoDB database
   cloud: './cloud/main.js', // Absolute path to your Cloud Code
   appId: 'myAppId',
   masterKey: 'myMasterKey', // Keep this key secret!
@@ -29,8 +29,7 @@ app.post("/company", (req, res) => {
     company: req.body.company,
     address: req.body.address,
     email: req.body.email,
-    contact: req.body.contact, 
-    product:req.body.product,
+    contact: req.body.contact,
     companyId:req.body.companyId,
     cr14:req.body.cr14,//cr-company registration
     cr2:req.body.cr2,//cr-company registration
@@ -133,11 +132,7 @@ app.post("/company", (req, res) => {
       .get(id)
       .then((company) => {
           company.save({
-          company: req.body.company,
-          address: req.body.address,
-          contact: req.body.contact, 
-          product:req.body.product,
-          email:req.body.email
+          ...req.body
           });
             res.json({company}).status(200);
           })
